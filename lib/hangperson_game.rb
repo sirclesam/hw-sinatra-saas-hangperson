@@ -14,7 +14,6 @@ class HangpersonGame
       raise ArgumentError 
     end
     
-    
     letter.downcase!
 
     if @word.include?(letter)
@@ -34,7 +33,25 @@ class HangpersonGame
     end
   end
     
+  def word_with_guesses
+    word_so_far = ""
+    @word.each_char  do |letter|
+      if(@guesses.include?(letter))
+        word_so_far = word_so_far + letter
+      else
+        word_so_far = word_so_far + '-'
+      end
+    end
+    return word_so_far
+  end
     
+  def check_win_or_lose
+    check = word_with_guesses
+    return :win unless check.include?('-')
+    return :lose if @wrong_guesses.length == 7
+    
+    return :play
+  end
 
   # Get a word from remote "random word" service
 
