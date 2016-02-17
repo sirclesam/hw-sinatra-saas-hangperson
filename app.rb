@@ -45,7 +45,7 @@ class HangpersonApp < Sinatra::Base
     begin
     new_letter = @game.guess(letter)
     rescue ArgumentError
-      flash[:message] = "Invalid entry: Single letters only."
+      flash[:message] = "Invalid entry: Valid letters only."
     end
     
     if(new_letter == false)
@@ -71,7 +71,7 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/win' do
-    ### YOUR CODE HERE ###
+    redirect '/show' unless @game.check_win_or_lose == :win
     erb :win # You may change/remove this line
   end
   

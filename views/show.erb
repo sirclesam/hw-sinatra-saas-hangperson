@@ -16,9 +16,13 @@
   <span class="word"><%= @game.word_with_guesses %></span>
 </p>
 
-<form action="/guess" method="post">
-  <input type="text" size="1" name="guess" autocomplete="off"/>
+<form action="/guess" method="post" >
+  <input id="mytext" type="text" size="1" name="guess" autocomplete="off"/>
   <input type="submit" value="Guess!"/>
 </form>
+
+<script>
+    document.getElementById("mytext").focus();
+</script>
 
 <%= erb :new %>
