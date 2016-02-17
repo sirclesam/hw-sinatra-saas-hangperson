@@ -45,11 +45,11 @@ class HangpersonApp < Sinatra::Base
     begin
     new_letter = @game.guess(letter)
     rescue ArgumentError
-      flash[:message] = "Invalid entry: Valid letters only."
+      flash[:message] = "Invalid guess."
     end
     
     if(new_letter == false)
-      flash[:message] = "You have already used that letter: #{letter.upcase}"
+      flash[:message] = "You have already used that letter"
     end
     redirect '/show'
   end
@@ -76,7 +76,7 @@ class HangpersonApp < Sinatra::Base
   end
   
   get '/lose' do
-    ### YOUR CODE HERE ###
+    redirect '/show' unless @game.check_win_or_lose == :lose
     erb :lose # You may change/remove this line
   end
   
