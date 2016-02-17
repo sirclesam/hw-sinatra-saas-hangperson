@@ -42,9 +42,15 @@ class HangpersonApp < Sinatra::Base
   # If a guess is invalid, set flash[:message] to "Invalid guess."
   post '/guess' do
     letter = params[:guess].to_s[0]
+    begin
+    new_letter = @game.guess(letter)
+    rescue ArgumentError
+      flash[:message] = "Invalid entry: Single letters only."
+    end
     
-    @game.guess(letter)
-    
+    if(new_letter == false)
+      flash[:message] = "You have already used that letter: #{letter.upcase}"
+    end
     redirect '/show'
   end
   
@@ -60,7 +66,7 @@ class HangpersonApp < Sinatra::Base
     when :lose 
       redirect '/lose'
     when :play
-      erb :show # You may change/remove this line
+      erb :show
     end
   end
   
